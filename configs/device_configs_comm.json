@@ -1,0 +1,77 @@
+{
+    // Begin routers configuration array
+    "routers": [
+        {
+            // Specify the device type
+            "type": "router",
+            // Hostname of the router
+            "hostname": "Router1",
+            // IP address of the router for SSH connection
+            "ip_address": "192.168.1.1",
+            // Interface configurations with IP addresses and subnet masks
+            "interfaces": {
+                "GigabitEthernet0/0": "10.0.0.1 255.255.255.0",
+                "GigabitEthernet0/1": "192.168.10.1 255.255.255.0"
+            },
+            // HSRP configuration details
+            "hsrp": {
+                // Interface on which HSRP is configured
+                "interface": "GigabitEthernet0/0",
+                // HSRP group number
+                "group": 1,
+                // Virtual IP address for HSRP
+                "virtual_ip": "10.0.0.254"
+            },
+            // DHCP pools configuration array
+            "dhcp_pools": [
+                {
+                    // Name of the DHCP pool
+                    "pool_name": "LAN_POOL",
+                    // Network address and subnet mask for the DHCP pool
+                    "network": "192.168.10.0 255.255.255.0",
+                    // Default gateway for the DHCP clients
+                    "default_router": "192.168.10.1"
+                }
+            ]
+        },
+        // Configuration for Router2 (similar to Router1)
+        {
+            "type": "router",
+            "hostname": "Router2",
+            "ip_address": "192.168.1.2",
+            "interfaces": {
+                "GigabitEthernet0/0": "10.0.0.2 255.255.255.0",
+                "GigabitEthernet0/1": "192.168.20.1 255.255.255.0"
+            },
+            "hsrp": {
+                "interface": "GigabitEthernet0/0",
+                "group": 1,
+                "virtual_ip": "10.0.0.254"
+            },
+            "dhcp_pools": [
+                {
+                    "pool_name": "LAN_POOL",
+                    "network": "192.168.20.0 255.255.255.0",
+                    "default_router": "192.168.20.1"
+                }
+            ]
+        }
+    ],
+    // Begin switches configuration array
+    "switches": [
+        {
+            // Specify the device type
+            "type": "switch",
+            // Hostname of the switch
+            "hostname": "Switch1",
+            // IP address of the switch for SSH connection
+            "ip_address": "192.168.1.3",
+            // List of VLANs to be configured
+            "vlans": [10, 20],
+            // Interfaces on which port security will be applied
+            "interfaces": ["GigabitEthernet0/1", "GigabitEthernet0/2"],
+            // Interfaces on which STP security features will be applied
+            "stp_security": ["GigabitEthernet0/1", "GigabitEthernet0/2"]
+        }
+    ]
+}

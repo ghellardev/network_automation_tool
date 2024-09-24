@@ -1,0 +1,56 @@
+{
+    "routers": [
+        {
+            "type": "router",
+            "hostname": "Router1",
+            "ip_address": "192.168.1.1",
+            "interfaces": {
+                "GigabitEthernet0/0": "10.0.0.1 255.255.255.0",
+                "GigabitEthernet0/1": "192.168.10.1 255.255.255.0"
+            },
+            "hsrp": {
+                "interface": "GigabitEthernet0/0",
+                "group": 1,
+                "virtual_ip": "10.0.0.254"
+            },
+            "dhcp_pools": [
+                {
+                    "pool_name": "LAN_POOL",
+                    "network": "192.168.10.0 255.255.255.0",
+                    "default_router": "192.168.10.1"
+                }
+            ]
+        },
+        {
+            "type": "router",
+            "hostname": "Router2",
+            "ip_address": "192.168.1.2",
+            "interfaces": {
+                "GigabitEthernet0/0": "10.0.0.2 255.255.255.0",
+                "GigabitEthernet0/1": "192.168.20.1 255.255.255.0"
+            },
+            "hsrp": {
+                "interface": "GigabitEthernet0/0",
+                "group": 1,
+                "virtual_ip": "10.0.0.254"
+            },
+            "dhcp_pools": [
+                {
+                    "pool_name": "LAN_POOL",
+                    "network": "192.168.20.0 255.255.255.0",
+                    "default_router": "192.168.20.1"
+                }
+            ]
+        }
+    ],
+    "switches": [
+        {
+            "type": "switch",
+            "hostname": "Switch1",
+            "ip_address": "192.168.1.3",
+            "vlans": [10, 20],
+            "interfaces": ["GigabitEthernet0/1", "GigabitEthernet0/2"],
+            "stp_security": ["GigabitEthernet0/1", "GigabitEthernet0/2"]
+        }
+    ]
+}
